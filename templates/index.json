@@ -331,41 +331,15 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "text_HdhFpj": {
-              "type": "text",
-              "name": "t:names.heading",
+            "heading_btw_kEx9VQ": {
+              "type": "heading-btw",
+              "name": "Heading (accessible mode)",
               "settings": {
                 "text": "<h2>New arrivals</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-accent--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "text_eGbTxU": {
-              "type": "text",
-              "name": "t:names.text",
-              "settings": {
-                "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "paragraph",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -373,6 +347,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
+                "heading_role": "heading",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -417,8 +392,7 @@
             }
           },
           "block_order": [
-            "text_HdhFpj",
-            "text_eGbTxU",
+            "heading_btw_kEx9VQ",
             "contact_form_btw_Gz6qRN"
           ]
         }

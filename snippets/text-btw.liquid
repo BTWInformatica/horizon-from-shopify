@@ -68,19 +68,29 @@
       --text-padding: max(var(--padding-2xs), calc((var(--text-corner-radius) + var(--padding-xs)) * (1 - cos(45deg))));
     {% endif %}
   "
-
+  {% if block_settings.heading_role == 'role' and is_rte != true %}
+    role="heading"
+    aria-level="{{ aria_level }}"
+  {% endif %}
+  
   {{ block.shopify_attributes }}
 {% endcapture %}
 {% liquid
-  # {{ attributes }} must be on the immediate HTML parent of the text to preserve
-  # the click-to-edit connection in the theme editor. Any break between the text,
-  # including if-statements, will break the connection.
+  assign heading_tag = block_settings.heading_type | default: 'h2'
+  assign aria_level = heading_tag | slice: 1
 
-  assign element = 'div'
+  # Se l'utente sceglie "heading", usiamo davvero h1..h6; altrimenti <span> con role/aria.
+  assign element = heading_tag
+  if block_settings.heading_role != 'heading'
+    assign element = 'span'
+  endif
+
+  # In modalità RTE rimane il custom element del tema
   if is_rte
     assign element = 'rte-formatter'
   endif
 %}
+
 
 {% if fallback_text != blank and plain_text == blank %}
   <div {{ attributes }}>

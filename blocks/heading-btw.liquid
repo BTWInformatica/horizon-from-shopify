@@ -10,31 +10,7 @@
       "id": "text",
       "label": "t:settings.text",
       "default": "t:html_defaults.share_information_about_your"
-    },
-
-    {
-      "type": "header",
-      "content": "Type",
-      "info": "Select the tag: role only for accessibility",
-    },
-
-{
-      "type": "select",
-      "id": "heading_role",
-      "label": "Heading type",
-      "info": "Select the tag: role only for accessibility",
-      "options": [
-        {
-          "value": "heading",
-          "label": "Heading"
-        },
-        {
-          "value": "role",
-          "label": "Role"
-        }
-      ],
-      "default": "heading"
-    },     
+    },   
     {
       "type": "header",
       "content": "t:content.layout"
@@ -93,7 +69,7 @@
       "options": [
         {
           "value": "rte",
-          "label": "t:options.default"
+          "label": "t:options.default",
         },
         {
           "value": "paragraph",
@@ -333,6 +309,30 @@
       "default": "var(--color-foreground)",
       "visible_if": "{{ block.settings.type_preset != 'rte' }}"
     },
+    {
+      "type": "header",
+      "content": "Type",
+      "info": "Select the tag: role only for accessibility",
+      "visible_if": "{{ block.settings.type_preset != 'rte' or block.settings.type_preset != 'paragraph' or block.settings.type_preset != 'custom'}}"
+    },
+    {
+      "type": "select",
+      "id": "heading_role",
+      "label": "Heading type",
+      "info": "Select the tag: role only for accessibility",
+      "options": [
+        {
+          "value": "heading",
+          "label": "Heading"
+        },
+        {
+          "value": "role",
+          "label": "Role"
+        }
+      ],
+      "default": "heading",
+      "visible_if": "{{ block.settings.type_preset != 'rte' or block.settings.type_preset != 'paragraph' or block.settings.type_preset != 'custom'}}"
+    },      
     {
       "type": "header",
       "content": "t:content.appearance"

@@ -331,6 +331,32 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "text_8YwaRg": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>New arrivals</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "heading_btw_kEx9VQ": {
               "type": "heading-btw",
               "name": "Heading (accessible mode)",
@@ -347,7 +373,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
-                "heading_role": "heading",
+                "heading_role": "role",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -392,6 +418,7 @@
             }
           },
           "block_order": [
+            "text_8YwaRg",
             "heading_btw_kEx9VQ",
             "contact_form_btw_Gz6qRN"
           ]

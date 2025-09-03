@@ -313,7 +313,7 @@
       "type": "header",
       "content": "Type",
       "info": "Select the tag",
-      "visible_if": "{{ block.settings.type_preset != 'rte' or block.settings.type_preset != 'paragraph' or block.settings.type_preset != 'custom'}}"
+      "visible_if": "{{ block.settings.type_preset != 'rte' and block.settings.type_preset != 'paragraph' and block.settings.type_preset != 'custom'}}"
     },
     {
       "type": "select",
@@ -331,7 +331,7 @@
         }
       ],
       "default": "heading",
-      "visible_if": "{{ block.settings.type_preset != 'rte' or block.settings.type_preset != 'paragraph' or block.settings.type_preset != 'custom'}}"
+      "visible_if": "{{ block.settings.type_preset != 'rte' and block.settings.type_preset != 'paragraph' and block.settings.type_preset != 'custom'}}"
     },      
     {
       "type": "header",

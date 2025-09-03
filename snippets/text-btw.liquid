@@ -68,11 +68,11 @@
       --text-padding: max(var(--padding-2xs), calc((var(--text-corner-radius) + var(--padding-xs)) * (1 - cos(45deg))));
     {% endif %}
   "
-  {% if block_settings.heading_role == 'role' and is_rte != true %}
+  {% if block_settings.heading_role == 'role'%}
     role="heading"
     aria-level="{{ aria_level }}"
   {% endif %}
-  
+
   {{ block.shopify_attributes }}
 {% endcapture %}
 {% liquid

@@ -48,7 +48,6 @@
     {%- endif -%}
 
     <div class="contact-form__form-row">
-        A
       <label
         class="visually-hidden"
         for="ContactForm-name"
@@ -122,7 +121,17 @@
     >
       {{- form.body -}}
     </textarea>
-
+      <div class="privacy">
+        <input
+          id="customPrivacy"
+          type="checkbox"
+          name="privacy"
+          required
+        >
+        <label for="customPrivacy"
+          ><a href="{{ shop.privacy_policy.url }}">{{ 'custom.privacy.form' | t }}</a></label
+        >
+      </div>
     {{ submit_button }}
   {%- endform -%}
 </div>

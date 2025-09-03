@@ -347,7 +347,7 @@
                 "case": "none",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
-                "heading_role": "heading",
+                "heading_role": "role",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,

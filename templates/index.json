@@ -335,11 +335,11 @@
               "type": "heading-btw",
               "name": "Heading (accessible mode)",
               "settings": {
-                "text": "<h2>New arrivals</h2>",
+                "text": "<p>New arrivals</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h6",
+                "type_preset": "h1",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",

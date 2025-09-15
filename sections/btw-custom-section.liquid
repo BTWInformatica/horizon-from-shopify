@@ -40,7 +40,7 @@
   class="{% if section.settings.full_width == false %}page-width-desktop page-width max_width {% else %}full-width{% endif %} section-{{ section.id }}-padding custom-section color-{{ section.settings.color_scheme }} {{ section.settings.custom_class }}"
   style="display: flex; column-gap: {{ section.settings.column-gap }}px; row-gap: {{ section.settings.row-gap }}px;"
 >
-  {% content_for 'blocks' %}
+
 
 {% capture list_items %}
     {% if section.settings.collection != blank and shop.products_count != 0 %}
@@ -88,6 +88,8 @@
     content_type: 'products',
     test_id: 'resource-list-grid'
   %}
+
+    {% content_for 'blocks' %}
 </div>
 
 {% schema %}

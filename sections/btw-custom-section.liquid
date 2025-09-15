@@ -36,6 +36,9 @@
     }
   }
 {% endstyle %}
+{% liquid
+  assign max_items = 5
+%}
 <div
   class="{% if section.settings.full_width == false %}page-width-desktop page-width max_width {% else %}full-width{% endif %} section-{{ section.id }}-padding custom-section color-{{ section.settings.color_scheme }} {{ section.settings.custom_class }}"
   style="display: flex; column-gap: {{ section.settings.column-gap }}px; row-gap: {{ section.settings.row-gap }}px;"

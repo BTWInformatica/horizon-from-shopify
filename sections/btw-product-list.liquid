@@ -1,4 +1,4 @@
-{%- content_for 'blocks' -%}
+
 {% liquid
   assign max_items = section.settings.max_products
 %}
@@ -22,9 +22,6 @@
     {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
   </div>
 
-  <div class="">
-    {%- content_for 'block', type: '_collection-card-image', id: 'collection-image'  -%}
-  </div>
 
   {% capture list_items %}
     {% if section.settings.collection != blank and shop.products_count != 0 %}
@@ -78,7 +75,7 @@
     class="section-resource-list__content"
     style="--horizontal-alignment: {{ section.settings.horizontal_alignment }};"
   >
-
+    {%- content_for 'blocks' -%}
   </div>
 </div>
 

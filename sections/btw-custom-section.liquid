@@ -40,7 +40,9 @@
   class="{% if section.settings.full_width == false %}page-width-desktop page-width max_width {% else %}full-width{% endif %} section-{{ section.id }}-padding custom-section color-{{ section.settings.color_scheme }} {{ section.settings.custom_class }}"
   style="display: flex; column-gap: {{ section.settings.column-gap }}px; row-gap: {{ section.settings.row-gap }}px;"
 >
-
+  <div class="section-resource-list__header">
+    {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
+  </div>
 
 {% capture list_items %}
     {% if section.settings.collection != blank and shop.products_count != 0 %}

@@ -41,6 +41,7 @@
   style="display: flex; column-gap: {{ section.settings.column-gap }}px; row-gap: {{ section.settings.row-gap }}px;"
 >
   {% content_for 'blocks' %}
+  {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
 </div>
 
 {% schema %}

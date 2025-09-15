@@ -21,6 +21,10 @@
     {%- content_for 'block', type: '_product-list-content', id: 'static-header' -%}
   </div>
 
+  <div class="">
+    {%- content_for 'block', type: '_collection-card-image', id: 'collection-image'  -%}
+  </div>
+
   {% capture list_items %}
     {% if section.settings.collection != blank and shop.products_count != 0 %}
       {% paginate section.settings.collection.products by max_items %}

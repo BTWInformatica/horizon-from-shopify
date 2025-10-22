@@ -1,5 +1,5 @@
 # Aggiornamento tema
-##Main
+## Main
 1) Aggiornare "horizon-from-shopify" da https://github.com/BTWInformatica/horizon-from-shopify -> sync fork
 2) GithHub Desktop -> Current Branch -> Main
 3) Repository -> Settings
@@ -15,6 +15,6 @@
 3) Push
 
 ## Branch clienti
-1) GithHub Desktop -> Current Branch -> *Branch cliente*
-2) Branch -> Merge into current branch (Btw-Horizon -> *Branch cliente*)-> Create a merge commit
+1) GithHub Desktop -> Current Branch -> **Branch cliente**
+2) Branch -> Merge into current branch (Btw-Horizon -> **Branch cliente**)-> Create a merge commit
 3) Push

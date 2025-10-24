@@ -36,8 +36,7 @@
   {%- endcomment -%}
   {%- assign first_image = blank -%}
   {%- for block in section.blocks -%}
-    {{ block.type }}
-    {%- if block.type == 'slide' and block.settings.image != blank -%}
+     {%- if block.settings.image != blank -%}
       {%- assign first_image = block.settings.image -%}
       {%- break -%}
     {%- endif -%}

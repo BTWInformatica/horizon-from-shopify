@@ -56,7 +56,6 @@
       aspect-ratio: var(--slide-aspect-ratio, 16/9); /* fallback */
     }
     
-
     /* Fallback per browser senza aspect-ratio */
     @supports not (aspect-ratio: 1 / 1) {
       #Slideshow-{{ section.id }} { position: relative; }
@@ -107,6 +106,12 @@
   </script>
 {%endcomment %}  
 {%- else -%}
+{% style %}
+  #Slideshow-{{ section.id }} slideshow-slides[size=full] {
+   height: calc(100vh - var(--header-group-height));
+}
+{% endstyle %}
+
   {% render 'slideshow',
     class: slideshow_class,
     controls: controls,

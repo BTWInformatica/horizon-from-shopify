@@ -83,42 +83,7 @@
     }
   </style>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var root = document.getElementById('Slideshow-{{ section.id }}');
-      if (!root) return;
-
-      // Prende la prima immagine o video realmente presente nello slideshow
-      var media = root.querySelector('img, video');
-      if (!media) return;
-
-      function setRatio(w, h) {
-        if (w && h) {
-          root.style.setProperty('--slide-aspect-ratio', w + ' / ' + h);
-          // Fallback no aspect-ratio:
-          root.style.setProperty('--slide-padding-top', (h / w * 100) + '%');
-        }
-      }
-
-      if (media.tagName === 'IMG') {
-        if (media.complete && media.naturalWidth) {
-          setRatio(media.naturalWidth, media.naturalHeight);
-        } else {
-          media.addEventListener('load', function () {
-            setRatio(media.naturalWidth, media.naturalHeight);
-          }, { once: true });
-        }
-      } else if (media.tagName === 'VIDEO') {
-        if (media.readyState >= 1 && media.videoWidth) {
-          setRatio(media.videoWidth, media.videoHeight);
-        } else {
-          media.addEventListener('loadedmetadata', function () {
-            setRatio(media.videoWidth, media.videoHeight);
-          }, { once: true });
-        }
-      }
-    });
-  </script>
+  
 {%- else -%}
   {% render 'slideshow',
     class: slideshow_class,

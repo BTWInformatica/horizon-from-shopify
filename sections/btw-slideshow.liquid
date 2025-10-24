@@ -36,12 +36,13 @@
   {%- endcomment -%}
   {%- assign first_image = blank -%}
   {%- for block in section.blocks -%}
+    {{ block.type }}
     {%- if block.type == 'slide' and block.settings.image != blank -%}
       {%- assign first_image = block.settings.image -%}
       {%- break -%}
     {%- endif -%}
   {%- endfor -%}
-{{ first_image }}
+
   {%- if first_image != blank -%}
     <style>
       /* Adatta l’altezza dello slideshow alla VERA altezza della prima immagine in base alla larghezza corrente */

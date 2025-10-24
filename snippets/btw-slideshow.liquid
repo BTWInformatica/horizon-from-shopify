@@ -29,6 +29,9 @@
 {% assign class = class | strip %}
 {% assign style = style | strip %}
 
+{%- #ADAPT: prendo il primo bloocco -%}
+{% assign first_block = section.blocks.first %}
+{{ first_block }}
 <slideshow-component
   {% if ref != blank %}
     ref="{{ ref }}"

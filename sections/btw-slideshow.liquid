@@ -106,11 +106,11 @@
   </script>
 {%endcomment %}  
 {%- else -%}
-{% style %}
+<style>
   #Slideshow-{{ section.id }} slideshow-slides[size=full] {
    height: calc(100vh - var(--header-group-height));
 }
-{% endstyle %}
+</style>
 
   {% render 'slideshow',
     class: slideshow_class,

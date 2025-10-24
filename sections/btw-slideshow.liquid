@@ -111,7 +111,7 @@
    height: calc(100vh - var(--header-group-height));
 }
 </style>
-
+<div id="Slideshow-{{ section.id }}" class="{{ section.settings.section_width }}">
   {% render 'slideshow',
     class: slideshow_class,
     controls: controls,
@@ -123,6 +123,7 @@
     slide_count: section.blocks.size,
     slide_size: section.settings.slide_height
   %}
+</div>  
 {%- endif -%}
 
 </div>

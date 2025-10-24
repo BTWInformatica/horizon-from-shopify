@@ -300,7 +300,7 @@
       "name": "t:names.slideshow",
       "settings": {
         "icons_style": "arrows_large",
-        "slideshow_controls_style": "counter",
+        "slideshow_controls_style": "hide",
         "color_scheme": "",
         "autoplay": false,
         "autoplay_speed": 4,

@@ -1,10 +1,20 @@
 {{ 'btw-slideshow.css' | asset_url | stylesheet_tag }}
-{% if section.blocks.size > 1 %}
+
+{%- liquid
+  assign slide_count = 0
+  for block in section.blocks
+    if block.type == '_slide'
+      assign slide_count = slide_count | plus: 1
+    endif
+  endfor
+-%}
+
+{% if slide_count > 1 %}
   {% capture controls %}
     {%- render 'slideshow-controls',
       style: section.settings.slideshow_controls_style,
       autoplay: section.settings.autoplay,
-      item_count: section.blocks.size,
+      item_count: slide_count,
       show_arrows: false,
       arrows_on_media: true,
       controls_on_media: true,
@@ -14,18 +24,32 @@
   {% endcapture %}
 {% endif %}
 
+{%- comment -%} Catturo SOLO gli slide {%- endcomment -%}
 {% capture slides %}
-  {% content_for 'blocks' %}
+  {% for block in section.blocks %}
+    {% if block.type == '_slide' %}
+      {% render block %}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{%- comment -%} Catturo i gruppi da rendere in section {%- endcomment -%}
+{% capture btw_groups %}
+  {% for block in section.blocks %}
+    {% if block.type == '_btw-group' %}
+      {% render block %}
+    {% endif %}
+  {% endfor %}
 {% endcapture %}
 
 {% liquid
   assign slideshow_class = 'slideshow--single-media'
-  if section.blocks.size > 1
+  if slide_count > 1
     assign slideshow_class = ''
   endif
 
   assign show_arrows = true
-  if section.settings.icons_style == 'none' or section.blocks.size <= 1
+  if section.settings.icons_style == 'none' or slide_count <= 1
     assign show_arrows = false
   endif
 %}
@@ -35,96 +59,119 @@
   class="spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} disable-section-top-offset"
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
-{%- if section.settings.slide_height == 'auto' -%}
-  <div id="Slideshow-{{ section.id }}" class="{{ section.settings.section_width }}">
-    {% render 'slideshow',
-      class: slideshow_class,
-      controls: controls,
-      show_arrows: show_arrows,
-      icon_style: section.settings.icons_style,
-      autoplay: section.settings.autoplay,
-      autoplay_speed: section.settings.autoplay_speed,
-      slides: slides,
-      slide_count: section.blocks.size,
-      slide_size: section.settings.slide_height
-    %}
-  </div>
 
-  <style>
-    /* L’altezza del wrapper segue il rapporto d’aspetto della prima immagine */
-    #Slideshow-{{ section.id }}, #Slideshow-{{ section.id }} slideshow-slides {
-      aspect-ratio: var(--slide-aspect-ratio, 16/9); /* fallback */
-    }
-    
-    /* Fallback per browser senza aspect-ratio */
-    @supports not (aspect-ratio: 1 / 1) {
-      #Slideshow-{{ section.id }} { position: relative; }
-      #Slideshow-{{ section.id }}::before {
-        content: "";
-        display: block;
-        padding-top: var(--slide-padding-top, 56.25%); /* aggiornato via JS */
+  {%- if section.settings.slide_height == 'auto' -%}
+    <div id="Slideshow-{{ section.id }}" class="{{ section.settings.section_width }}">
+      {% render 'slideshow',
+        class: slideshow_class,
+        controls: controls,
+        show_arrows: show_arrows,
+        icon_style: section.settings.icons_style,
+        autoplay: section.settings.autoplay,
+        autoplay_speed: section.settings.autoplay_speed,
+        slides: slides,
+        slide_count: slide_count,
+        slide_size: section.settings.slide_height
+      %}
+    </div>
+
+    <style>
+      /* L’altezza del wrapper segue il rapporto d’aspetto della prima immagine/video */
+      #Slideshow-{{ section.id }},
+      #Slideshow-{{ section.id }} slideshow-slides {
+        aspect-ratio: var(--slide-aspect-ratio, 16/9); /* fallback iniziale */
       }
-      #Slideshow-{{ section.id }} > * { position: absolute; inset: 0; height: 100%; }
-    }
-  </style>
-{% comment %}
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var root = document.getElementById('Slideshow-{{ section.id }}');
-      if (!root) return;
 
-      // Prende la prima immagine o video realmente presente nello slideshow
-      var media = root.querySelector('img, video');
-      if (!media) return;
+      /* Assicura che il contenuto riempia l’altezza calcolata */
+      #Slideshow-{{ section.id }} slideshow-container,
+      #Slideshow-{{ section.id }} slideshow-slides {
+        height: 100%;
+      }
+      #Slideshow-{{ section.id }} img,
+      #Slideshow-{{ section.id }} video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* usa 'contain' se non vuoi crop */
+      }
 
-      function setRatio(w, h) {
-        if (w && h) {
-          root.style.setProperty('--slide-aspect-ratio', w + ' / ' + h);
-          // Fallback no aspect-ratio:
-          root.style.setProperty('--slide-padding-top', (h / w * 100) + '%');
+      /* Fallback per browser senza aspect-ratio */
+      @supports not (aspect-ratio: 1 / 1) {
+        #Slideshow-{{ section.id }} { position: relative; }
+        #Slideshow-{{ section.id }}::before {
+          content: "";
+          display: block;
+          padding-top: var(--slide-padding-top, 56.25%); /* aggiornato via JS */
+        }
+        #Slideshow-{{ section.id }} > * {
+          position: absolute;
+          inset: 0;
+          height: 100%;
+          width: 100%;
         }
       }
+    </style>
 
-      if (media.tagName === 'IMG') {
-        if (media.complete && media.naturalWidth) {
-          setRatio(media.naturalWidth, media.naturalHeight);
-        } else {
-          media.addEventListener('load', function () {
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var root = document.getElementById('Slideshow-{{ section.id }}');
+        if (!root) return;
+
+        // Cerca il primo media reale dentro <slideshow-slides> per evitare icone/controlli
+        var media = root.querySelector('slideshow-slides img, slideshow-slides video');
+        if (!media) return;
+
+        function setRatio(w, h) {
+          if (w && h) {
+            root.style.setProperty('--slide-aspect-ratio', w + ' / ' + h);
+            // Fallback per browser senza aspect-ratio:
+            root.style.setProperty('--slide-padding-top', (h / w * 100) + '%');
+          }
+        }
+
+        if (media.tagName === 'IMG') {
+          if (media.complete && media.naturalWidth) {
             setRatio(media.naturalWidth, media.naturalHeight);
-          }, { once: true });
-        }
-      } else if (media.tagName === 'VIDEO') {
-        if (media.readyState >= 1 && media.videoWidth) {
-          setRatio(media.videoWidth, media.videoHeight);
-        } else {
-          media.addEventListener('loadedmetadata', function () {
+          } else {
+            media.addEventListener('load', function () {
+              setRatio(media.naturalWidth, media.naturalHeight);
+            }, { once: true });
+          }
+        } else if (media.tagName === 'VIDEO') {
+          if (media.readyState >= 1 && media.videoWidth) {
             setRatio(media.videoWidth, media.videoHeight);
-          }, { once: true });
+          } else {
+            media.addEventListener('loadedmetadata', function () {
+              setRatio(media.videoWidth, media.videoHeight);
+            }, { once: true });
+          }
         }
+      });
+    </script>
+
+  {%- else -%}
+    <style>
+      /* Comportamento nativo del tema quando height = full */
+      #Slideshow-{{ section.id }} slideshow-slides[size=full] {
+        height: calc(100vh - var(--header-group-height));
       }
-    });
-  </script>
-{%endcomment %}  
-{%- else -%}
-<style>
-  #Slideshow-{{ section.id }} slideshow-slides[size=full] {
-   height: calc(100vh - var(--header-group-height));
-}
-</style>
-<div id="Slideshow-{{ section.id }}" class="{{ section.settings.section_width }}">
-  {% render 'slideshow',
-    class: slideshow_class,
-    controls: controls,
-    show_arrows: show_arrows,
-    icon_style: section.settings.icons_style,
-    autoplay: section.settings.autoplay,
-    autoplay_speed: section.settings.autoplay_speed,
-    slides: slides,
-    slide_count: section.blocks.size,
-    slide_size: section.settings.slide_height
-  %}
-</div>  
-{%- endif -%}
+    </style>
+    <div id="Slideshow-{{ section.id }}" class="{{ section.settings.section_width }}">
+      {% render 'slideshow',
+        class: slideshow_class,
+        controls: controls,
+        show_arrows: show_arrows,
+        icon_style: section.settings.icons_style,
+        autoplay: section.settings.autoplay,
+        autoplay_speed: section.settings.autoplay_speed,
+        slides: slides,
+        slide_count: slide_count,
+        slide_size: section.settings.slide_height
+      %}
+    </div>
+  {%- endif -%}
+
+  {# 👉 blocchi "_btw-group" renderizzati nella section (posiziona dove preferisci) #}
+  {{ btw_groups }}
 
 </div>
 
@@ -134,12 +181,11 @@
   "class": "container-background-image",
   "blocks": [
     {
-      "type": "_slide",
+      "type": "_slide"
     },
     {
       "type": "_btw-group"
     }
-
   ],
   "disabled_on": {
     "groups": ["header", "footer"]
@@ -150,26 +196,11 @@
       "id": "icons_style",
       "label": "t:settings.navigation",
       "options": [
-        {
-          "value": "arrow",
-          "label": "t:options.arrows"
-        },
-        {
-          "value": "chevron",
-          "label": "t:options.chevrons"
-        },
-        {
-          "value": "arrows_large",
-          "label": "t:options.large_arrows"
-        },
-        {
-          "value": "chevron_large",
-          "label": "t:options.large_chevrons"
-        },
-        {
-          "value": "none",
-          "label": "t:options.none"
-        }
+        { "value": "arrow", "label": "t:options.arrows" },
+        { "value": "chevron", "label": "t:options.chevrons" },
+        { "value": "arrows_large", "label": "t:options.large_arrows" },
+        { "value": "chevron_large", "label": "t:options.large_chevrons" },
+        { "value": "none", "label": "t:options.none" }
       ],
       "default": "arrows_large"
     },
@@ -178,18 +209,9 @@
       "id": "slideshow_controls_style",
       "label": "t:settings.pagination",
       "options": [
-        {
-          "value": "dots",
-          "label": "t:options.dots"
-        },
-        {
-          "value": "counter",
-          "label": "t:options.counter"
-        },
-        {
-          "value": "hide",
-          "label": "t:options.hidden"
-        }        
+        { "value": "dots", "label": "t:options.dots" },
+        { "value": "counter", "label": "t:options.counter" },
+        { "value": "hide", "label": "t:options.hidden" }
       ],
       "default": "dots"
     },
@@ -225,14 +247,8 @@
       "id": "section_width",
       "label": "t:settings.width",
       "options": [
-        {
-          "value": "page-width",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
+        { "value": "page-width", "label": "t:options.page" },
+        { "value": "full-width", "label": "t:options.full" }
       ],
       "default": "full-width"
     },
@@ -240,26 +256,11 @@
       "type": "select",
       "id": "slide_height",
       "options": [
-        {
-          "value": "auto",
-          "label": "t:options.auto"
-        },
-        {
-          "value": "small",
-          "label": "t:options.small"
-        },
-        {
-          "value": "medium",
-          "label": "t:options.medium"
-        },
-        {
-          "value": "large",
-          "label": "t:options.large"
-        },
-        {
-          "value": "full",
-          "label": "t:options.full"
-        }       
+        { "value": "auto", "label": "t:options.auto" },
+        { "value": "small", "label": "t:options.small" },
+        { "value": "medium", "label": "t:options.medium" },
+        { "value": "large", "label": "t:options.large" },
+        { "value": "full", "label": "t:options.full" }
       ],
       "default": "medium",
       "label": "t:settings.height"
@@ -318,9 +319,7 @@
               "blocks": {
                 "heading": {
                   "type": "text",
-                  "settings": {
-                    "text": "t:html_defaults.new_arrivals_h2"
-                  }
+                  "settings": { "text": "t:html_defaults.new_arrivals_h2" }
                 },
                 "text": {
                   "type": "text",
@@ -366,9 +365,7 @@
               "blocks": {
                 "heading": {
                   "type": "text",
-                  "settings": {
-                    "text": "t:html_defaults.bestseller_h2"
-                  }
+                  "settings": { "text": "t:html_defaults.bestseller_h2" }
                 },
                 "text": {
                   "type": "text",

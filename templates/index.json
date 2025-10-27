@@ -9,12 +9,12 @@
  */
 {
   "sections": {
-    "btw_slideshow_jqGyEz": {
+    "btw_slideshow_zXqVfw": {
       "type": "btw-slideshow",
       "blocks": {
-        "group_ggMEXy": {
-          "type": "group",
-          "name": "t:names.group",
+        "btw_group_ADRzMQ": {
+          "type": "_btw-group",
+          "name": "Group",
           "settings": {
             "content_direction": "column",
             "vertical_on_mobile": true,
@@ -52,11 +52,11 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "btw_heading_HH7qUq": {
+            "btw_heading_YPXKqX": {
               "type": "btw-heading",
               "name": "Heading",
               "settings": {
-                "text": "Test01",
+                "text": "Hello, world!",
                 "alignment": "left",
                 "heading_type": "h2",
                 "heading_role": "heading"
@@ -65,14 +65,13 @@
             }
           },
           "block_order": [
-            "btw_heading_HH7qUq"
+            "btw_heading_YPXKqX"
           ]
         },
-        "slide_yRzmTG": {
+        "slide_ktFibH": {
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
-            "image_1": "shopify://shop_images/retail-shopping-package.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -93,7 +92,7 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "group_CR6yUp": {
+            "group_xTywe4": {
               "type": "group",
               "settings": {
                 "content_direction": "column",
@@ -132,7 +131,7 @@
                 "padding-inline-end": 48
               },
               "blocks": {
-                "text_hVCyRG": {
+                "text_bFnwXL": {
                   "type": "text",
                   "settings": {
                     "text": "<h2>New arrivals</h2>",
@@ -157,7 +156,7 @@
                   },
                   "blocks": {}
                 },
-                "text_c8zHQx": {
+                "text_hAFtiH": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Introducing our latest products, made especially for the season. Shop your favorites before they're gone!</p>",
@@ -182,7 +181,7 @@
                   },
                   "blocks": {}
                 },
-                "button_Y9PVnQ": {
+                "button_WiLdhV": {
                   "type": "button",
                   "settings": {
                     "label": "Shop now",
@@ -198,21 +197,20 @@
                 }
               },
               "block_order": [
-                "text_hVCyRG",
-                "text_c8zHQx",
-                "button_Y9PVnQ"
+                "text_bFnwXL",
+                "text_hAFtiH",
+                "button_WiLdhV"
               ]
             }
           },
           "block_order": [
-            "group_CR6yUp"
+            "group_xTywe4"
           ]
         },
-        "slide_e3yqg4": {
+        "slide_rg44Fr": {
           "type": "_slide",
           "settings": {
             "media_type_1": "image",
-            "image_1": "shopify://shop_images/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -233,7 +231,7 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "group_RLewJa": {
+            "group_7faXUx": {
               "type": "group",
               "settings": {
                 "content_direction": "column",
@@ -272,7 +270,7 @@
                 "padding-inline-end": 48
               },
               "blocks": {
-                "text_WUVKYh": {
+                "text_RHkFA9": {
                   "type": "text",
                   "settings": {
                     "text": "<h2>Bestsellers</h2>",
@@ -297,7 +295,7 @@
                   },
                   "blocks": {}
                 },
-                "text_Rn7Xq7": {
+                "text_xW3YVD": {
                   "type": "text",
                   "settings": {
                     "text": "<p>Discover the bestsellers that have captured the hearts of our customers with their perfect blend of functionality and style.</p>",
@@ -322,7 +320,7 @@
                   },
                   "blocks": {}
                 },
-                "button_HGgHFJ": {
+                "button_LPC4Er": {
                   "type": "button",
                   "settings": {
                     "label": "Shop now",
@@ -338,31 +336,31 @@
                 }
               },
               "block_order": [
-                "text_WUVKYh",
-                "text_Rn7Xq7",
-                "button_HGgHFJ"
+                "text_RHkFA9",
+                "text_xW3YVD",
+                "button_LPC4Er"
               ]
             }
           },
           "block_order": [
-            "group_RLewJa"
+            "group_7faXUx"
           ]
         }
       },
       "block_order": [
-        "group_ggMEXy",
-        "slide_yRzmTG",
-        "slide_e3yqg4"
+        "btw_group_ADRzMQ",
+        "slide_ktFibH",
+        "slide_rg44Fr"
       ],
       "name": "t:names.slideshow",
       "settings": {
         "icons_style": "arrows_large",
-        "slideshow_controls_style": "hide",
+        "slideshow_controls_style": "dots",
         "color_scheme": "",
         "autoplay": false,
         "autoplay_speed": 4,
         "section_width": "full-width",
-        "slide_height": "full",
+        "slide_height": "medium",
         "padding-block-start": 0,
         "padding-block-end": 0
       }
@@ -640,7 +638,7 @@
     }
   },
   "order": [
-    "btw_slideshow_jqGyEz",
+    "btw_slideshow_zXqVfw",
     "hero_jVaWmY",
     "product_list_fa6P9H"
   ]
